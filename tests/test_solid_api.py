@@ -12,22 +12,34 @@ def gen_random_str() -> str:
     return uuid.uuid4().hex
 
 
+# base_url = 'https://dahanhsi.solidcommunity.net/'
+POD_ENDPOINT = 'https://pod.inrupt.com/petertc/'
+
+
 def test_folder():
-    base_url = 'https://dahanhsi.solidcommunity.net/'
+    base_url = POD_ENDPOINT
     folder_name = 'testfolder-' + gen_random_str()
     url = base_url + folder_name + '/'
 
     api = SolidAPI(None)
+
+    try:
+        api.delete_folder(url)
+    except HTTPStatusError as e:
+        if e.response.status_code != 404:
+            raise e
+
     api.create_folder(url)
     assert api.item_exists(url)
     api.delete_folder(url)
+    assert not api.item_exists(url)
 
     with pytest.raises(Exception):
         api.delete_folder(base_url)
 
 
 def test_read_folder():
-    base_url = 'https://dahanhsi.solidcommunity.net/'
+    base_url = POD_ENDPOINT
     folder_name = 'testfolder'
     url = base_url + folder_name + '/'
 
@@ -94,7 +106,8 @@ def test_read_folder():
 
 
 def test_file():
-    url = 'https://dahanhsi.solidcommunity.net/public/test.md.' + gen_random_str()
+    base_url = POD_ENDPOINT
+    url = POD_ENDPOINT + 'test.md.' + gen_random_str()
     api = SolidAPI(None)
 
     assert not api.item_exists(url)
