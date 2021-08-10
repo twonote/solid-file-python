@@ -4,6 +4,7 @@ from typing import Optional, Union, Dict, Callable, Iterable, AsyncIterable, Lis
 import httpx
 from httpx import Response, HTTPStatusError
 
+from solid.auth import Auth
 from solid.utils.api_util import get_root_url, LINK, get_parent_url, get_item_name
 from solid.utils.folder_utils import parse_folder_response
 
@@ -76,15 +77,18 @@ RequestContent = Union[str, bytes, Iterable[bytes], AsyncIterable[bytes]]
 
 
 class SolidAPI:
-    def __init__(self, fetch: Callable[[str, Dict], Response], options=None):
-        pass
+    def __init__(self, auth=None):
+        if not auth:
+            auth = Auth()
+        self.auth = auth
 
     def fetch(self, method, url, options: Dict = None) -> Response:
         if not options:
             options = {}
-        options['verify'] = False
+        # options['verify'] = False
 
-        r = httpx.request(method, url, **options)
+        r = self.auth.client.request(method, url, **options)
+        # r= httpx.request(method, url, **options)
         r.raise_for_status()
         return r
 

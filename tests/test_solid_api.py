@@ -1,9 +1,11 @@
 import io
+import os
 import uuid
 
 import pytest
 from httpx import HTTPStatusError
 
+from solid.auth import Auth
 from solid.solid_api import SolidAPI
 from solid.utils.api_util import append_slashes_at_end
 
@@ -12,8 +14,27 @@ def gen_random_str() -> str:
     return uuid.uuid4().hex
 
 
-# base_url = 'https://dahanhsi.solidcommunity.net/'
-POD_ENDPOINT = 'https://pod.inrupt.com/petertc/'
+POD_ENDPOINT = 'https://dahanhsi.solidcommunity.net/'
+# POD_ENDPOINT = 'https://pod.inrupt.com/petertc/'
+
+IDP = os.getenv('IDP')
+USERNAME = os.getenv('USERNAME')
+PASSWORD = os.getenv('PASSWORD')
+PRIVATE_RES = 'https://dahanhsi.solidcommunity.net/private/test.md.md'
+
+
+def test_private_access():
+    auth = Auth()
+    api = SolidAPI(auth)
+
+    # not login
+    with pytest.raises(HTTPStatusError) as e:
+        api.get(PRIVATE_RES)
+    assert e.value.response.status_code == 401
+
+    # login
+    auth.login(IDP, USERNAME, PASSWORD)
+    api.get(PRIVATE_RES)
 
 
 def test_folder():
