@@ -1,3 +1,5 @@
+import pytest
+
 from solid.utils.api_util import remove_slashes_at_end, get_root_url, get_parent_url, get_item_name
 
 
@@ -30,9 +32,11 @@ def test_get_item_name():
     assert get_item_name('http://pod.com') == ''
 
 
+@pytest.mark.skip
 def test_are_folders():
     assert False
 
 
+@pytest.mark.skip
 def test_are_files():
     assert False
