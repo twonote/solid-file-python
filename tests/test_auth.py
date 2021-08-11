@@ -2,9 +2,9 @@ import os
 
 from solid.auth import Auth
 
-IDP = os.getenv('IDP')
-USERNAME = os.getenv('USERNAME')
-PASSWORD = os.getenv('PASSWORD')
+IDP = os.getenv('SOLID_IDP')
+USERNAME = os.getenv('SOLID_USERNAME')
+PASSWORD = os.getenv('SOLID_PASSWORD')
 
 
 def test_login():

@@ -14,10 +14,10 @@ def gen_random_str() -> str:
     return uuid.uuid4().hex
 
 
-POD_ENDPOINT = os.getenv('POD_ENDPOINT')
-IDP = os.getenv('IDP')
-USERNAME = os.getenv('USERNAME')
-PASSWORD = os.getenv('PASSWORD')
+POD_ENDPOINT = os.getenv('SOLID_ENDPOINT')
+IDP = os.getenv('SOLID_IDP')
+USERNAME = os.getenv('SOLID_USERNAME')
+PASSWORD = os.getenv('SOLID_PASSWORD')
 PRIVATE_RES = f'{POD_ENDPOINT}/private/test.md.md'
 
 
@@ -125,7 +125,6 @@ def test_read_folder():
 
 
 def test_file():
-    base_url = POD_ENDPOINT
     url = POD_ENDPOINT + 'test.md.' + gen_random_str()
     api = SolidAPI(None)
 
