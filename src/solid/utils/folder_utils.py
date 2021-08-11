@@ -7,12 +7,17 @@ from solid.utils.api_util import get_item_name, get_parent_url
 LDP = Namespace("http://www.w3.org/ns/ldp#")
 container_types = [URIRef('http://www.w3.org/ns/ldp#Container'), URIRef('http://www.w3.org/ns/ldp#BasicContainer')]
 
+
 # FIXME
 # def parse_folder_response(folder_response: Response, url) -> FolderData:
 def parse_folder_response(folder_response: Response, url):
+    return _parse_folder_response(folder_response.text, url)
+
+
+def _parse_folder_response(text, url):
     from solid.solid_api import FolderData, Item
 
-    g = Graph().parse(data=folder_response.text, publicID=url, format='turtle')
+    g = Graph().parse(data=text, publicID=url, format='turtle')
 
     def is_type(sub, type) -> bool:
         return (sub, RDF.type, type) in g
