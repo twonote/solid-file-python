@@ -14,13 +14,11 @@ def gen_random_str() -> str:
     return uuid.uuid4().hex
 
 
-POD_ENDPOINT = 'https://dahanhsi.solidcommunity.net/'
-# POD_ENDPOINT = 'https://pod.inrupt.com/petertc/'
-
+POD_ENDPOINT = os.getenv('POD_ENDPOINT')
 IDP = os.getenv('IDP')
 USERNAME = os.getenv('USERNAME')
 PASSWORD = os.getenv('PASSWORD')
-PRIVATE_RES = 'https://dahanhsi.solidcommunity.net/private/test.md.md'
+PRIVATE_RES = f'{POD_ENDPOINT}/private/test.md.md'
 
 
 def test_private_access():
