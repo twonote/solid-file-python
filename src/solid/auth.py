@@ -11,6 +11,8 @@ class Auth:
 
     def login(self, idp, username, password):
         # NSS only
+        if idp[-1] == '/':
+            idp = idp[:-1]
         url = '/'.join((idp, 'login/password'))
 
         data = {
@@ -18,7 +20,8 @@ class Auth:
             'password': password
         }
 
-        self.client.post(url, data=data)
+        r = self.client.post(url, data=data)
+        r.raise_for_status()
 
         if not self.is_login:
             raise Exception('Cannot login.')
