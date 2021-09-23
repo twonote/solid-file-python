@@ -1,0 +1,87 @@
+{
+	"info": {
+		"_postman_id": "058eaa67-da8f-4799-83e0-3cda06693a56",
+		"name": "id/pwd authentication (NSS only)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get private resouce",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{endpoint}}/private/test.md.md",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"private",
+						"test.md.md"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://solidcommunity.net/login/password",
+					"protocol": "https",
+					"host": [
+						"solidcommunity",
+						"net"
+					],
+					"path": [
+						"login",
+						"password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get private resouce",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{endpoint}}/private/test.md.md",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"private",
+						"test.md.md"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,68 @@
+{
+	"info": {
+		"_postman_id": "1f564a0c-9efb-4b40-a9a1-a903ed3b6143",
+		"name": "/profile/card#me",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET card",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/ld+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{endpoint}}/profile/card",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"profile",
+						"card"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET card#me",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/ld+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{endpoint}}/profile/card#me",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"profile",
+						"card"
+					],
+					"hash": "me"
+				}
+			},
+			"response": []
+		}
+	]
+}

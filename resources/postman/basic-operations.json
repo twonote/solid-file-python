@@ -1,0 +1,230 @@
+{
+	"info": {
+		"_postman_id": "500d9a2f-5c5e-445f-b1bd-bba7dcac3fc8",
+		"name": "solid basic operations",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/ accept default (turtle)",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{endpoint}}/",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/ accept JSON",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/ld+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{endpoint}}/",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create folder /testdir/",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Link",
+						"value": "<http://www.w3.org/ns/ldp#BasicContainer>; rel=\"type\"",
+						"type": "text"
+					},
+					{
+						"key": "Slug",
+						"value": "testdir",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<> <http://purl.org/dc/terms/title> \"Basic container\" .\n"
+				},
+				"url": {
+					"raw": "{{endpoint}}/",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/testdir/test.md",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/plain",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "# hello world"
+				},
+				"url": {
+					"raw": "{{endpoint}}/testdir/test.md",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"testdir",
+						"test.md"
+					]
+				},
+				"description": "test"
+			},
+			"response": []
+		},
+		{
+			"name": "/testdir/",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/ld+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{endpoint}}/testdir/",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"testdir",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/testdir/test.md",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/ld+json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{endpoint}}/testdir/test.md",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"testdir",
+						"test.md"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/testdir/test.md",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{endpoint}}/testdir/test.md",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"testdir",
+						"test.md"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/testdir/",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{endpoint}}/testdir/",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"testdir",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
