@@ -13,7 +13,6 @@ from solid.utils.api_util import append_slashes_at_end
 def gen_random_str() -> str:
     return uuid.uuid4().hex
 
-
 POD_ENDPOINT = os.getenv('SOLID_ENDPOINT')
 IDP = os.getenv('SOLID_IDP')
 USERNAME = os.getenv('SOLID_USERNAME')
@@ -143,5 +142,16 @@ def test_file():
     resp = api.get(url)
     assert resp.text == body
 
+    # patch
+    body = '#hello Solid! New World!'
+    f = io.BytesIO(body.encode('UTF-8'))
+    api.patch_file(url, f, 'text/markdown')
+
+    # retrieve
+    resp = api.get(url)
+    assert resp.text == body
+
     # delete
     api.delete(url)
+
+    
