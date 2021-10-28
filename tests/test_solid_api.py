@@ -13,11 +13,6 @@ from solid.utils.api_util import append_slashes_at_end
 def gen_random_str() -> str:
     return uuid.uuid4().hex
 
-def parse_turtle(turtle: str) -> str:
-    lines = turtle.split('\n')
-    for line in lines:
-        if line.startswith('<> dct'):
-            return line
 
 POD_ENDPOINT = os.getenv('SOLID_ENDPOINT')
 IDP = os.getenv('SOLID_IDP')
@@ -150,6 +145,7 @@ def test_file():
 
     # delete
     api.delete(url)
+    assert not api.item_exists(url)
 
     # patch - create ttl file
     patchedUrl = url + '.ttl'
@@ -168,8 +164,8 @@ def test_file():
 
     # retrieve updated ttl file
     resp = api.get(patchedUrl)
-    patchedBody = '<> dct:title "This is a test file"; contact:personalTitle "Dr.".'
-    assert parse_turtle(resp.text) == patchedBody
+    lines = resp.text.split('\n')
+    assert lines[4] == '<> dct:title "This is a test file"; contact:personalTitle "Dr.".'
 
     
 
