@@ -203,7 +203,7 @@ class SolidAPI:
             'content': patch_content
         }
 
-        return self.put(url, request_options)
+        return self.patch(url, request_options)
     
 
     def read_folder(self, url, options: ReadFolderOptions = ReadFolderOptions()) -> FolderData:
