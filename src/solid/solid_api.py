@@ -219,7 +219,13 @@ class SolidAPI:
         return parsed_folder
 
     def get_item_links(self, url, options: Dict = None) -> Response:
-        raise Exception('Not implemented')
+        if not self.item_exists(url):
+            raise Exception(f'Item not found: {url}')
+        
+        response = self.get(url)
+
+        return response.links
+
 
     def copy_file(self, _from, to, options: WriteOptions = None) -> Response:
         raise Exception('Not implemented')
