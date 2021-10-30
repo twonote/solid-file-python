@@ -19,7 +19,7 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install solid
-      run: python -m setup.py install
+      run: pip -r requirements.txt --upgrade pip
     - name: Run pytest
       run: python -m pytest
 
