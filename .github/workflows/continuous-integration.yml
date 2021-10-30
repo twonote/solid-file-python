@@ -20,6 +20,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install solid
       run: python setup.py install
+    - name: Install pytest
+      run: pip install pytest
     - name: Run pytest
       run: pytest
 
