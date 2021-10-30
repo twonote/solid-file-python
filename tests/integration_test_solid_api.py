@@ -6,7 +6,7 @@ import pytest
 from httpx import HTTPStatusError
 
 from solid.auth import Auth
-from solid.solid_api import SolidAPI
+from solid.solid_api import SolidAPI, WriteOptions
 from solid.utils.api_util import append_slashes_at_end
 
 
@@ -145,3 +145,28 @@ def test_file():
 
     # delete
     api.delete(url)
+    assert not api.item_exists(url)
+
+    # patch - create ttl file
+    patchedUrl = url + '.ttl'
+    body = "<> <http://purl.org/dc/terms/title> \"This is a test file\" .\n<> <http://www.w3.org/2000/10/swap/pim/contact#fullName> \"Eric Miller\" ."
+    f = io.BytesIO(body.encode('UTF-8'))
+    api.create_file(patchedUrl, f, 'text/turtle', WriteOptions())
+
+    # retrieve ttl file
+    resp = api.get(patchedUrl)
+    assert resp.text == body
+
+    # patch - update ttl file
+    body = "DELETE DATA { <> <http://www.w3.org/2000/10/swap/pim/contact#fullName> \"Eric Miller\" };\nINSERT DATA { <> <http://www.w3.org/2000/10/swap/pim/contact#personalTitle> \"Dr.\" }"
+    f = io.BytesIO(body.encode('UTF-8'))
+    api.patch_file(patchedUrl, f, 'application/sparql-update')
+
+    # retrieve updated ttl file
+    resp = api.get(patchedUrl)
+    lines = resp.text.split('\n')
+    assert lines[4] == '<> dct:title "This is a test file"; contact:personalTitle "Dr.".'
+
+    
+
+    

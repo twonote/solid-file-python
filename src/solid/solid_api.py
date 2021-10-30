@@ -189,7 +189,19 @@ class SolidAPI:
         return self.put(url, request_options)
 
     def patch_file(self, url, patch_content, patch_content_type) -> Response:
-        raise Exception('Not implemented')
+        if url[-1] == '/':
+            raise Exception("Cannot use patchFile to create a folder : {}".format(url))
+
+        request_options = {
+            'headers': {
+                'Link': LINK.RESOURCE.value,
+                'Content-Type': patch_content_type,
+            },
+            'content': patch_content
+        }
+
+        return self.patch(url, request_options)
+    
 
     def read_folder(self, url, options: ReadFolderOptions = ReadFolderOptions()) -> FolderData:
         if url[-1] != '/':
