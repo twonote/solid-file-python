@@ -1,11 +1,7 @@
 name: "Continuous Integration"
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    # The branches below must be a subset of the branches above
-    branches: [ master ]
+on: [push, pull_request]
+  branches: [ master ]
 
 jobs:
   analyze:
@@ -18,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: ['3.7', '3.8']
+        python-version: ['3.7', '3.8', '3.9', '3.10']
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python all python version
