@@ -5,7 +5,7 @@ import httpx
 from httpx import Response, HTTPStatusError
 
 from solid.auth import Auth
-from solid.utils.api_util import get_root_url, LINK, get_parent_url, get_item_name
+from solid.utils.api_util import get_root_url, LINK, get_parent_url, get_item_name, get_links_from_response
 from solid.utils.folder_utils import parse_folder_response
 
 
@@ -215,14 +215,26 @@ class SolidAPI:
 
         return parsed_folder
 
-    def get_item_links(self, url, options: Dict = None) -> Response:
+    def get_item_links(self, url, options: Dict = {}) -> Response:
         if not self.item_exists(url):
             raise Exception(f'Item not found: {url}')
-        
-        response = self.get(url)
 
-        return response.links
+        options.update({
+            "links": LINKS.INCLUDE_POSSIBLE,
+            "withAcl": True,
+            "withMeta": True,
+        })
 
+        if (options['links'] == LINKS.EXCLUDE):
+            raise Exception(f'Invalid option LINKS.EXCLUDE for getItemLinks')
+
+        response = self.head(url)
+        links = get_links_from_response(response)
+        if (options['links'] == LINKS.INCLUDE):
+            if (not options.withAcl): del links['acl']
+            if (not options.withMeta): del links['meta']
+
+        return links
 
     def copy_file(self, _from, to, options: WriteOptions = None) -> Response:
         raise Exception('Not implemented')

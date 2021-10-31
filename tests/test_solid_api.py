@@ -169,4 +169,4 @@ def test_file():
 
     # get item links
     links = api.get_item_links(patchedUrl)
-    assert links['type'] == {'rel': 'type', 'url': 'http://www.w3.org/ns/ldp#Resource'}
+    assert links == {'acl': "{}.acl".format(patchedUrl), 'meta': "{}.meta".format(patchedUrl)}
