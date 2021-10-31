@@ -9,6 +9,9 @@ Read and try it on [jupiter notebook](https://github.com/twonote/solid-file-pyth
 
 Solid is a specification that lets people store their data securely in decentralized data stores called Pods. Learn more about Solid on [solidproject.org](https://solidproject.org/).
 
+# Test setting
+If you run the tests on terminal using VS Code as the editor, you need to add this line `"terminal.integrated.env.osx": {"PYTHONPATH": "${workspaceFolder}"}` to `/.vscode/setting.json` to make it work.
+
 # Credit
 This project is inspired by (and porting from) [jeff-zucker/solid-file-client](https://github.com/jeff-zucker/solid-file-client)
 I want to thank the original authors and the community who worked to build that lovely project for Solid ecosystem.
