@@ -1,0 +1,33 @@
+# Github Actions workflow syntax documentation:
+# https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions
+#
+# Useful Github Actions Triggers reference:
+# https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-a-custom-action#triggers
+ 
+
+name: "Continuous Integration"
+
+on: [push, pull_request] # run unit tests on each commit so developers can notice errors as early as possible
+
+jobs:
+  test:
+    name: Unit tests 
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: # matrix testing strategy
+        python-version: ['3.7', '3.8', '3.9', '3.10']
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v2
+    # Setup Python (faster than using Python container)
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install solid
+      run: python setup.py install
+    - name: Install pytest
+      run: pip install pytest
+    - name: Run pytest
+      run: pytest
+
