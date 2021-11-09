@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List
+from typing import List, Dict
 import re
 
 
@@ -68,7 +68,7 @@ def get_links_from_response(response) -> dict:
     else:
         return parse_link_header(link_header, response.url)
 
-def parse_link_header(link_header: str, item_url) -> dict:
+def parse_link_header(link_header: str, item_url) -> Dict:
     link_dict = {}
     link_header_list = parse_link_header_to_array(link_header)
     if len(link_header_list) > 0:
@@ -85,14 +85,14 @@ def parse_link_header(link_header: str, item_url) -> dict:
     
     return link_dict
 
-def parse_link_header_to_array(link_header: str) -> list:
+def parse_link_header_to_array(link_header: str) -> List:
     if (not link_header): return
     linkexp = '<[^>]*>\s*(\s*;\s*[^()<>@,;:"/[\]?={} \t]+=(([^\(\)<>@,;:"\/\[\]\?={} \t]+)|("[^"]*")))*(,|$)'
     match = re.finditer(linkexp, link_header)
     links = [x.group() for x in match]
     return links
 
-def url_join(given, base):
+def url_join(given, base) -> str:
   base = str(base)
   base_hash = base.find('#')
   if (base_hash > 0):

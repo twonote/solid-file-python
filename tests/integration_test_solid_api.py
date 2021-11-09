@@ -169,4 +169,4 @@ def test_file():
 
     # get item links
     links = api.get_item_links(patchedUrl)
-    assert links == {'acl': "{}.acl".format(patchedUrl), 'meta': "{}.meta".format(patchedUrl)}
+    assert links == {'acl': f'{patchedUrl}.acl', 'meta': f'{patchedUrl}.meta'}

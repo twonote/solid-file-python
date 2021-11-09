@@ -215,7 +215,7 @@ class SolidAPI:
 
         return parsed_folder
 
-    def get_item_links(self, url, options: Dict = {}) -> Response:
+    def get_item_links(self, url, options: Dict = {}) -> Links:
         if not self.item_exists(url):
             raise Exception(f'Item not found: {url}')
 
