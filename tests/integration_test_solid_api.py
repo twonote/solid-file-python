@@ -167,6 +167,6 @@ def test_file():
     lines = resp.text.split('\n')
     assert lines[4] == '<> dct:title "This is a test file"; contact:personalTitle "Dr.".'
 
-    
-
-    
+    # get item links
+    links = api.get_item_links(patchedUrl)
+    assert links == {'acl': f'{patchedUrl}.acl', 'meta': f'{patchedUrl}.meta'}
