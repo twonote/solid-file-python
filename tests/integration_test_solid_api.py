@@ -147,26 +147,23 @@ def test_file():
     api.delete(url)
     assert not api.item_exists(url)
 
-    # patch - create ttl file
+
+def test_patch_file():
+    url = POD_ENDPOINT + 'test.md.' + gen_random_str()
+    api = SolidAPI(None)
+
+    # create ttl file
     patchedUrl = url + '.ttl'
     body = "<> <http://purl.org/dc/terms/title> \"This is a test file\" .\n<> <http://www.w3.org/2000/10/swap/pim/contact#fullName> \"Eric Miller\" ."
     f = io.BytesIO(body.encode('UTF-8'))
     api.create_file(patchedUrl, f, 'text/turtle', WriteOptions())
 
-    # retrieve ttl file
-    resp = api.get(patchedUrl)
-    assert resp.text == body
-
-    # patch - update ttl file
+    # patch ttl file
     body = "DELETE DATA { <> <http://www.w3.org/2000/10/swap/pim/contact#fullName> \"Eric Miller\" };\nINSERT DATA { <> <http://www.w3.org/2000/10/swap/pim/contact#personalTitle> \"Dr.\" }"
     f = io.BytesIO(body.encode('UTF-8'))
     api.patch_file(patchedUrl, f, 'application/sparql-update')
 
-    # retrieve updated ttl file
+    # retrieve patched ttl file
     resp = api.get(patchedUrl)
     lines = resp.text.split('\n')
     assert lines[4] == '<> dct:title "This is a test file"; contact:personalTitle "Dr.".'
-
-    
-
-    
