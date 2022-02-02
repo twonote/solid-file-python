@@ -10,7 +10,7 @@ name: "Continuous Integration"
 on: [push, pull_request] # run unit tests on each commit so developers can notice errors as early as possible
 
 jobs:
-  test:
+  unit_tests:
     name: Unit tests 
     runs-on: ubuntu-latest
     strategy:
@@ -30,7 +30,7 @@ jobs:
       run: pip install pytest
     - name: Run pytest
       run: pytest
-
+  integration_tests:
     name: Integration tests 
     runs-on: ubuntu-latest
     strategy:
