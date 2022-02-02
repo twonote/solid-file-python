@@ -46,6 +46,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install solid
       run: python setup.py install
+    - name: Install pytest
+      run: pip install pytest
     - name: Run Solid Authorization tests
       run: python tests/integration_test_auth.py
     - name: Run Solid API tests
