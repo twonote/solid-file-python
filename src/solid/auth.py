@@ -3,7 +3,7 @@ import httpx
 
 class Auth:
     def __init__(self):
-        self.client = httpx.Client()
+        self.client = httpx.Client(follow_redirects=True)
 
     @property
     def is_login(self) -> bool:
