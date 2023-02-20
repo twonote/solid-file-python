@@ -9,6 +9,10 @@ solid-file-python is a Python library for creating and managing files and folder
 
 Read and try it on [jupiter notebook](https://github.com/twonote/solid-file-python/blob/master/solid-file-python-getting-start.ipynb) now!
 
+# Limitations
+
+Currently the authentication process relies on endpoints and cookies by the node-solid-server. Therefore, at least for now, authentication with other pod providers won't work.
+
 # What is Solid?
 
 Solid is a specification that lets people store their data securely in decentralized data stores called Pods. Learn more about Solid on [solidproject.org](https://solidproject.org/).
