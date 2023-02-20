@@ -1,3 +1,6 @@
+0.2.1 (2023-02-20)
+- Update dependencies
+
 0.2.0 (2022-01-04)
 - Add patch method
 - Update doc and CI configuration
