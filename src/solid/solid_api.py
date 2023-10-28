@@ -158,12 +158,12 @@ class SolidAPI:
 
         return self.post_item(url, '', 'text/turtle', LINK.CONTAINER, options)
 
-    def post_file(self, url, content: RequestContent, content_type, options: WriteOptions = None) -> Response:
+    def post_file(self, url, content: RequestContent, content_type, options: WriteOptions = WriteOptions(create_path=False, with_acl=False)) -> Response:
         if url[-1] == '/':
             raise Exception(f'Cannot use postFile to create a folder : ${url}')
         return self.post_item(url, content, content_type, LINK.RESOURCE, options)
 
-    def create_file(self, url, content: RequestContent, content_type, options: WriteOptions = None) -> Response:
+    def create_file(self, url, content: RequestContent, content_type, options: WriteOptions = WriteOptions(with_acl=False)) -> Response:
         return self.post_file(url, content, content_type, options)
 
     """
