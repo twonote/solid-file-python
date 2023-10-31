@@ -24,6 +24,9 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
+    # necessary after Python 3.12 / gh-95299
+    - name: Install setuptools
+      run: pip install setuptools    
     - name: Install solid
       run: python setup.py install
     - name: Install pytest
