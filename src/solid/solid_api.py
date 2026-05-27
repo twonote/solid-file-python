@@ -87,7 +87,10 @@ class SolidAPI:
             options = {}
         # options['verify'] = False
 
-        r = self.auth.client.request(method, url, **options)
+        if hasattr(self.auth, 'fetch'):
+            r = self.auth.fetch(method, url, options)
+        else:
+            r = self.auth.client.request(method, url, **options)
         # r= httpx.request(method, url, **options)
         r.raise_for_status()
         return r
