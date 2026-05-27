@@ -81,13 +81,24 @@ class SolidAPI:
         if not auth:
             auth = Auth()
         self.auth = auth
+        # Used when auth is a callable (get_auth_headers function)
+        self._client = httpx.Client()
 
     def fetch(self, method, url, options: Dict = None) -> Response:
         if not options:
             options = {}
         # options['verify'] = False
 
-        r = self.auth.client.request(method, url, **options)
+        if callable(self.auth):
+            # auth is a get_auth_headers(url, method) -> dict function
+            if 'headers' not in options:
+                options['headers'] = {}
+            options['headers'].update(self.auth(url, method))
+            r = self._client.request(method, url, **options)
+        elif hasattr(self.auth, 'fetch'):
+            r = self.auth.fetch(method, url, options)
+        else:
+            r = self.auth.client.request(method, url, **options)
         # r= httpx.request(method, url, **options)
         r.raise_for_status()
         return r
